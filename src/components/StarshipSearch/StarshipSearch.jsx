@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+
 export default function StarshipSearch({starships,setDisplayedStarships}) {
     const [filterTerm,setFilterTerm] = useState('')
     const [searched,setSearched] = useState(false)
@@ -27,7 +28,7 @@ export default function StarshipSearch({starships,setDisplayedStarships}) {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="filter">Search Term: </label>
                 <input id="filter" type="text" value={filterTerm} onChange={handleSearch}></input>
-                <button type="submit">Search</button>
+                <button type="submit" disabled={searched}>Search</button>
                 {searched && <button onClick={handleBack}>Back</button>}
             </form>
         </div>
