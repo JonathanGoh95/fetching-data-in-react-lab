@@ -1,12 +1,9 @@
 // src/App.jsx
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import StarshipSearch from "./components/StarshipSearch/StarshipSearch";
 import StarshipList from "./components/StarshipList/StarshipList";
 import * as starshipService from './services/starshipService'
-
 import './App.css'
-
 
 const App = () => {
   const [starshipsData,setStarshipsData] = useState([])
@@ -15,11 +12,10 @@ const App = () => {
   useEffect(() => {
     const fetchStarships = async () => {
       const dataset = await starshipService.index();
-      setStarshipsData(dataset);        // Both state setters are called with the fetched data.
-      // setDisplayedStarships(dataset); 
+      setStarshipsData(dataset);  // Only the Starships Data state will be set with the fetched data.
     };
     fetchStarships(); 
-  }, []); // []  ensures the effect runs only once when the component mounts.
+  }, []); // [] ensures the effect runs only once when the component mounts.
 
   return (
     <div className="main">
