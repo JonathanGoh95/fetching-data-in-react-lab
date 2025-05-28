@@ -60,3 +60,7 @@ button {
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+.searchDiv {
+  margin-bottom: 20px;
+}

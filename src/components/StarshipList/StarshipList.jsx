@@ -1,9 +1,9 @@
 import StarshipCard from "../StarshipCard/StarshipCard";
 
-export default function StarshipList({starships}) {
+export default function StarshipList({starships,displayedStarships}) {
     return(
       <div>
-        <StarshipCard starships={starships} />
+        {displayedStarships.length === 0 ? <StarshipCard starships={starships} /> : <StarshipCard starships={displayedStarships} />}
       </div>
     )
 }

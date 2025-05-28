@@ -16,7 +16,7 @@ const App = () => {
     const fetchStarships = async () => {
       const dataset = await starshipService.index();
       setStarshipsData(dataset);        // Both state setters are called with the fetched data.
-      setDisplayedStarships(dataset);
+      // setDisplayedStarships(dataset); 
     };
     fetchStarships(); 
   }, []); // []  ensures the effect runs only once when the component mounts.
@@ -24,7 +24,8 @@ const App = () => {
   return (
     <div className="main">
       <h1>Star Wars API</h1>
-        <StarshipList starships={starshipsData}/>
+      <StarshipSearch starships={starshipsData} setDisplayedStarships={setDisplayedStarships}/>
+      <StarshipList starships={starshipsData} displayedStarships={displayedStarships}/>
     </div>
   );
 }
