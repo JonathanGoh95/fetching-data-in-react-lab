@@ -64,3 +64,8 @@ button {
 .searchDiv {
   margin-bottom: 20px;
 }
+
+#filterBy {
+  padding: 6px;
+  border-radius: 5px;
+}

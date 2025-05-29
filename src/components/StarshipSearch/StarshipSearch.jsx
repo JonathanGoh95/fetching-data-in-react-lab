@@ -3,7 +3,9 @@ import { useState } from "react"
 
 export default function StarshipSearch({starships,setDisplayedStarships}) {
     const [filterTerm,setFilterTerm] = useState('') // State for the Search Input Box
+    const [filterBy,setFilterBy] = useState('name')
     const [searched,setSearched] = useState(false)  // State for accessibility customization
+    const [error, setError] = useState(''); // State for error message
 
     const handleBack = (event) => {
         event.preventDefault()  // Prevent the page from reloading after clicking the 'Back' button
@@ -13,10 +15,15 @@ export default function StarshipSearch({starships,setDisplayedStarships}) {
 
     const handleSubmit = (event) => {
         event.preventDefault()  // Prevent the page from reloading after form submission
+        if (filterTerm.length === 0) {
+            setError('Please enter a search term.');
+            return;
+        }
         setSearched(true)
-        setDisplayedStarships(starships.filter(starship => starship.name.toLowerCase().includes(filterTerm.toLowerCase())))
+        setDisplayedStarships(starships.filter(starship => starship[filterBy] && starship[filterBy].toLowerCase().includes(filterTerm.toLowerCase())))
         // Set the empty Displayed Starships array with the filtered Starships Data array
         setFilterTerm('')   // Clears the search box after form submission
+        setError('')
     }
 
     return(
@@ -25,9 +32,18 @@ export default function StarshipSearch({starships,setDisplayedStarships}) {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="filter">Search Term: </label>
                 <input id="filter" type="text" value={filterTerm} onChange={(e)=>setFilterTerm(e.target.value)}></input>
+                <label htmlFor="filterBy">Filter By: </label>
+                <select id="filterBy" onChange={(e) => setFilterBy(e.target.value)}>
+                    <option value=''>--Please choose an option--</option>
+                    <option value='name'>Name</option>
+                    <option value='starship_class'>Class</option>
+                    <option value='manufacturer'>Manufacturer</option>
+                    <option value='model'>Model</option>
+                </select>
                 <button type="submit" disabled={searched}>Search</button>
                 {searched && <button onClick={handleBack}>Back</button>}
             </form>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>
     )
 }
